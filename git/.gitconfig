@@ -1,0 +1,20 @@
+[user]
+	name = 
+	email = 
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	comp = checkout master && pull
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	cm = "!git add -A && git commit -m "
+	cam = "!git commit --amend -m "
+	amend = !git add -A && git commit --amend --no-edit
+	p = !git push origin $(git rev-parse --abbrev-ref HEAD)
+	co = !git checkout
+	cob = checkout -b
+	upb = !git pull origin master:master
+	up = !git pull --autostash --rebase --prune $@ && git submodule update --init --recursive
+	wip = !git add -u && git commit -m "WIP"
+	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+	default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
+	bclean = "!f() { DEFAULT=$(git default); git branch --merged ${1-$DEFAULT} | grep -v " ${1-$DEFAULT}$" | xargs git branch -d; }; f"
+	bdone = "!f() { DEFAULT=$(git default); git checkout ${1-$DEFAULT} && git up && git bclean ${1-$DEFAULT}; }; f"                                                                                                              
