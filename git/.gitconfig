@@ -12,7 +12,7 @@
 	co = !git checkout
 	cob = checkout -b
 	upb = !git pull origin master:master
-	up = !git pull --autostash --rebase --prune $@ && git submodule update --init --recursive
+	up = up = "!f() { git pull --autostash --rebase --prune origin $(git rev-parse --abbrev-ref HEAD) \"$@\" && git submodule update --init --recursive; }; f"
 	wip = !git add -u && git commit -m "WIP"
 	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 	default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
